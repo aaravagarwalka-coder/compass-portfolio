@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Compass & Cornerstones | Global Terminal</title>
+    <script src='https://cdn.tailwindcss.com'></script>
+    <script>
+        const PORTFOLIO_DATA = {
+    'MSOS': { name: 'ADVISORSHARES PURE US CANN', price: '6.85 USD', score: '-0.1240', verdict: 'Neutral', text: `AdvisorShares Pure US Cannabis ETF tracks multi-state operators in the United States. Regulatory delays regarding federal scheduling reclassification introduce structural volatility across multi-state operating cash loops.` },
+    'ARKK': { name: 'ARK INNOVATION ETF', price: '43.20 USD', score: '+0.4150', verdict: 'Bullish', text: `ARK Innovation ETF focuses on disruptive technology platforms, genomics, and automation infrastructure. Accelerating global AI deployment curves support underlying equity valuations, balancing near-term cyclical friction.` },
+    'AVUV': { name: 'AVANTIS US SMALL CAP VALUE', price: '84.50 USD', score: '+0.0890', verdict: 'Neutral', text: `Avantis US Small Cap Value ETF targets fundamentally sound small-cap corporations trading at structural value discounts. Strong local industrials demand buffers baseline capital allocation margins.` },
+    'XLC': { name: 'COMM SERV SELECT SECTOR SPDR', price: '72.15 USD', score: '+0.2840', verdict: 'Bullish', text: `Communication Services Select Sector SPDR Fund holds mega-cap digital media and interactive entertainment properties. Accelerating enterprise ad expenditures and high-margin subscription frameworks support sector stability.` },
+    'XLY': { name: 'CONSUMER DISCRETIONARY SELT', price: '184.60 USD', score: '-0.1980', verdict: 'Bearish', text: `Consumer Discretionary Select Sector SPDR targets broad retail, automotive, and leisure industries. Shifting consumer discretionary expenditure lines across secondary geographic hubs introduce macro demand fluctuations.` },
+    'XLP': { name: 'CONSUMER STAPLES SPDR', price: '75.40 USD', score: '+0.0120', verdict: 'Neutral', text: `Consumer Staples Select Sector SPDR holds defensive packaging, food products, and household goods providers. Highly stable consumer merchandise retail baselines protect absolute corporate margin structures.` },
+    'XLE': { name: 'ENERGY SELECT SECTOR SPDR', price: '88.10 USD', score: '-0.3410', verdict: 'Bearish', text: `Energy Select Sector SPDR Fund tracks integrated oil, gas, and energy equipment operators. Softer global refining margins and fluctuating crude baselines create short-term cash flow contractions across legacy asset grids.` },
+    'XLF': { name: 'FINANCIAL SELECT SECTOR SPDR', price: '38.90 USD', score: '+0.1950', verdict: 'Bullish', text: `Financial Select Sector SPDR holds large banking, insurance, and capital market operators. Widespread commercial standalone net interest margins continue to secure long-term economic moats despite monetary shifts.` },
+    'GRID': { name: 'FIRST TRST NASD CL EDG SGIIF', price: '124.15 USD', score: '+0.1140', verdict: 'Neutral', text: `First Trust NASDAQ Clean Edge Smart Grid Infrastructure ETF tracks smart grid tech. Widespread electric utilities grid transformation runs in tandem with massive macro capital allocations.` },
+    'QQQ': { name: 'INVESCO QQQ TRUST SERIES 1', price: '442.80 USD', score: '+0.6120', verdict: 'Bullish', text: `Invesco QQQ Trust tracks the top 100 large-cap technology and growth equities. Data center expansion demand profiles and unparalleled digital service pricing power drive tech valuation margins to all-time structural highs.` },
+    'INDA': { name: 'ISHARES MSCI INDIA ETF', price: '48.20 USD', score: '+0.3180', verdict: 'Bullish', text: `iShares MSCI India ETF tracks broad Indian equities. Massive retail customer acquisition across tier-2 cities and rapid independent infrastructure rollouts balance regional legacy commodity risks.` },
+    'EWZ': { name: 'ISHARES MSCI BRAZIL ETF', price: '28.50 USD', score: '-0.2150', verdict: 'Bearish', text: `iShares MSCI Brazil ETF targets integrated South American commodity and banking sectors. Fluctuating global material demand lines introduce short-term margin volatility across integrated corporate networks.` },
+    'SPY': { name: 'SPDR S&P 500 ETF TRUST', price: '512.40 USD', score: '+0.1450', verdict: 'Neutral', text: `SPDR S&P 500 ETF Trust tracks the core broad market capitalization index of the top 500 liquid US corporate entities, acting as an institutional baseline asset allocation wrapper.` },
+    'XLK': { name: 'TECHNOLOGY SELECT SECT SPDR', price: '205.10 USD', score: '+0.5480', verdict: 'Bullish', text: `Technology Select Sector SPDR holds leading semiconductor, software, and systems engineering enterprises. Specialized hardware execution arrays process transformer matrix math calculations at scale, lifting sector revenue.` },
+    'TLT': { name: 'ISHARES 20+ YEAR TREASURY BO', price: '94.20 USD', score: '-0.0840', verdict: 'Neutral', text: `iShares 20+ Year Treasury Bond ETF tracks long-term US government debt instruments. Near-term macroeconomic interest rate volatility presents macro capital contractions across fixed-income portfolio wrappers.` },
+    'SHY': { name: 'ISHARES 1-3 YEAR TREASURY BO', price: '58.15 USD', score: '+0.0050', verdict: 'Neutral', text: `iShares 1-3 Year Treasury Bond ETF holds defensive short-term sovereign debt portfolios, functioning as an ultra-low variance asset shelter against broader public equity drawdowns.` },
+};
+
+        function switchAsset(ticker) {
+            const data = PORTFOLIO_DATA[ticker];
+            if (!data) return;
+            document.getElementById('current-ticker').innerText = ticker;
+            document.getElementById('current-name').innerText = data.name;
+            document.getElementById('current-price').innerText = data.price;
+
+            const scoreElement = document.getElementById('current-score');
+            const badgeElement = document.getElementById('current-verdict-badge');
+            scoreElement.innerText = data.score;
+
+            if (data.verdict === "Bullish") {
+                scoreElement.className = "text-xl font-bold mt-1 text-emerald-400";
+                badgeElement.className = "px-2.5 py-1 text-xs font-semibold rounded-full text-emerald-400 border border-emerald-800 bg-emerald-950/20";
+                badgeElement.innerText = "✅ Bullish";
+            } else if (data.verdict === "Bearish") {
+                scoreElement.className = "text-xl font-bold mt-1 text-rose-400";
+                badgeElement.className = "px-2.5 py-1 text-xs font-semibold rounded-full text-rose-400 border border-rose-800 bg-rose-950/20";
+                badgeElement.innerText = "❌ Bearish";
+            } else {
+                scoreElement.className = "text-xl font-bold mt-1 text-amber-400";
+                badgeElement.className = "px-2.5 py-1 text-xs font-semibold rounded-full text-amber-400 border border-amber-800 bg-amber-950/20";
+                badgeElement.innerText = "⚫ Neutral";
+            }
+            document.getElementById('current-text').innerText = data.text;
+
+            document.querySelectorAll('.ticker-btn').forEach(btn => {
+                btn.className = "ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate";
+            });
+            const cleanId = 'btn-' + ticker.replace('.', '\.');
+            const targetBtn = document.getElementById(cleanId);
+            if(targetBtn) {
+                targetBtn.className = "ticker-btn p-2 text-center rounded border border-amber-500 bg-zinc-900 text-white text-[10px] font-mono shadow-md shadow-amber-500/5 font-bold truncate";
+            }
+        }
+        window.onload = function() {
+            switchAsset('MSOS');
+        };
+    </script>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans min-h-screen p-4 sm:p-6">
+    <div class="max-w-5xl mx-auto border border-zinc-800 bg-zinc-900/20 p-6 rounded-2xl shadow-2xl space-y-5">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-zinc-800 pb-4 gap-3">
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 text-[9px] font-mono font-bold bg-amber-500/10 text-amber-500 border border-amber-500/20 rounded">COMPASS LIVE INDEX TERMINAL</span>
+                    <h1 class="text-base font-bold text-white tracking-tight">Compass & Cornerstones</h1>
+                </div>
+                <p class="text-xs text-zinc-400 mt-0.5">Dynamic standalone deployment layout compilation pipeline.</p>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <div class="lg:col-span-3 space-y-4">
+                <div class="border border-zinc-800 bg-zinc-900/10 rounded-xl p-5 space-y-4">
+                    <div class="flex items-center justify-between border-b border-zinc-800 pb-3">
+                        <div>
+                            <span id="current-ticker" class="text-2xl font-extrabold text-white tracking-wider">---</span>
+                            <h2 id="current-name" class="text-zinc-400 text-xs">Select Asset Ticker</h2>
+                        </div>
+                        <span id="current-verdict-badge" class="px-2 py-0.5 text-xs rounded-full">-</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-zinc-900/30 border border-zinc-800/60 rounded-lg p-3">
+                            <span class="text-[9px] text-zinc-500 uppercase tracking-wider font-mono">Market Price</span>
+                            <span id="current-price" class="text-lg font-bold mt-0.5 block text-zinc-200">--.--</span>
+                        </div>
+                        <div class="bg-zinc-900/30 border border-zinc-800/60 rounded-lg p-3">
+                            <span class="text-[9px] text-zinc-500 uppercase tracking-wider font-mono">Sentiment Net Value</span>
+                            <span id="current-score" class="text-lg font-bold mt-0.5 block text-zinc-200">0.00</span>
+                        </div>
+                    </div>
+                    <div class="bg-zinc-900/40 border border-zinc-800 p-3.5 rounded-lg">
+                        <h3 class="text-[10px] font-semibold text-zinc-400 mb-1 uppercase tracking-wider font-mono">Asset Deep Narrative</h3>
+                        <p id="current-text" class="text-xs text-zinc-300 leading-relaxed font-sans">Initializing selection matrices...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border border-zinc-800 bg-zinc-900/10 rounded-xl p-3 flex flex-col h-[350px]">
+                <h3 class="text-[10px] font-semibold text-zinc-400 mb-2 uppercase tracking-wider border-b border-zinc-800 pb-1.5 font-mono">Asset Universe</h3>
+                <div class="grid grid-cols-2 gap-1.5 overflow-y-auto flex-1 pr-1">
+                    <button id="btn-MSOS" onclick="switchAsset('MSOS')" class="ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate">MSOS</button><button id="btn-ARKK" onclick="switchAsset('ARKK')" class="ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate">ARKK</button><button id="btn-AVUV" onclick="switchAsset('AVUV')" class="ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate">AVUV</button><button id="btn-XLC" onclick="switchAsset('XLC')" class="ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate">XLC</button><button id="btn-XLY" onclick="switchAsset('XLY')" class="ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate">XLY</button><button id="btn-XLP" onclick="switchAsset('XLP')" class="ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate">XLP</button><button id="btn-XLE" onclick="switchAsset('XLE')" class="ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate">XLE</button><button id="btn-XLF" onclick="switchAsset('XLF')" class="ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate">XLF</button><button id="btn-GRID" onclick="switchAsset('GRID')" class="ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate">GRID</button><button id="btn-QQQ" onclick="switchAsset('QQQ')" class="ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate">QQQ</button><button id="btn-INDA" onclick="switchAsset('INDA')" class="ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate">INDA</button><button id="btn-EWZ" onclick="switchAsset('EWZ')" class="ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate">EWZ</button><button id="btn-SPY" onclick="switchAsset('SPY')" class="ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate">SPY</button><button id="btn-XLK" onclick="switchAsset('XLK')" class="ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate">XLK</button><button id="btn-TLT" onclick="switchAsset('TLT')" class="ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate">TLT</button><button id="btn-SHY" onclick="switchAsset('SHY')" class="ticker-btn p-2 text-center rounded border border-zinc-800 bg-zinc-900/40 text-zinc-400 text-[10px] font-mono hover:border-zinc-700 transition-all truncate">SHY</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
